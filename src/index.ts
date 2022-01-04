@@ -21,4 +21,12 @@ export default class DiviConfigParser {
 		return flagName in this.flags;
 	}
 
+	addValueToFlag(flagName: string, value: FlagTypes | FlagTypes[]): void {
+		if (!this.isFlagSet(flagName)) {
+			this.setFlag(flagName, []);
+		}
+
+		this.flags[flagName].push(...this.convertValueArray(value));
+	}
+
 }
