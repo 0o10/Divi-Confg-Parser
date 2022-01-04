@@ -40,4 +40,19 @@ export default class DiviConfigParser {
 		}
 	}
 
+	private isStringDiviConfigFlag(flagString: string): boolean {
+		return flagString.charAt(0) !== '#' && flagString.includes('=');
+	}
+
+	fromString(fileContents: string): void {
+		const lines = fileContents.split('\n');
+
+		for (const line of lines) {
+			if (this.isStringDiviConfigFlag(line)) {
+				const [flagName, value] = line.split('=');
+				this.addValueToFlag(flagName, value);
+			}
+		}
+	}
+
 }
