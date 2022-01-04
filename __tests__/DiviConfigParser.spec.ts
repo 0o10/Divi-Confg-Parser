@@ -16,4 +16,16 @@ describe('Divi Config Parser', () => {
 
 		expect(diviConfig.getFlagContents(flagName)).toEqual(contents);
 	});
+
+	test('Sets flag to have multiple values & gets all contents', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flagName = randomString();
+		const contents = [randomString(), randomString()];
+
+		diviConfig.setFlag(flagName, contents);
+
+		expect(diviConfig.getFlagContents(flagName)).toEqual(contents);
+	});
+
 });
