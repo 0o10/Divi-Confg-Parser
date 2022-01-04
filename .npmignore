@@ -1,0 +1,6 @@
+src/
+__tests__/
+node_modules/
+.DS_Store
+tsconfig.json
+coverage/
