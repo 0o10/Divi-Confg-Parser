@@ -56,4 +56,15 @@ export default class DiviConfigParser {
 		}
 	}
 
+	toString(): string {
+		let diviConfigString = '';
+
+		for (const flag in this.flags) {
+			for (const value of this.flags[flag]) {
+				diviConfigString += '\n' + flag + '=' + value.toString();
+			}
+		}
+
+		return diviConfigString;
+	}
 }
