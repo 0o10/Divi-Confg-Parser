@@ -17,4 +17,8 @@ export default class DiviConfigParser {
 		this.flags[flagName] = this.convertValueArray(value);
 	}
 
+	isFlagSet(flagName: string): boolean {
+		return flagName in this.flags;
+	}
+
 }
