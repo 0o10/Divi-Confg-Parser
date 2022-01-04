@@ -1,0 +1,13 @@
+{
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules", "__tests__/"],
+	"compilerOptions": {
+		"rootDir": "src",
+		"outDir": "build",
+		"target": "es2017",
+		"module": "commonjs",
+		"sourceMap": true,
+		"esModuleInterop": true,
+		"declaration": true
+	}
+}
