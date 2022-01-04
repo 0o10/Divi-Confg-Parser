@@ -122,4 +122,21 @@ flag3=127.0.0.1
 		);
 	});
 
+	test('Returns divi config file', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flag1 = randomString();
+		const contents1 = randomString();
+		diviConfig.addValueToFlag(flag1, contents1);
+
+		const flag2 = randomString();
+		const contents2 = randomBool();
+		const contents3 = randomInt();
+		diviConfig.setFlag(flag2, [contents2, contents3]);
+
+		expect(diviConfig.toString()).toEqual(`
+${flag1}=${contents1}
+${flag2}=${contents2}
+${flag2}=${contents3}`);
+	});
 });
