@@ -78,4 +78,27 @@ describe('Divi Config Parser', () => {
 		);
 	});
 
+	test('Sets flags from divi config file', () => {
+		const diviConfig = new DiviConfigParser();
+
+		diviConfig.fromString(`
+flag1=value
+flag2=123
+#comment
+#commentedFlag=23
+
+flag3=123.456.789
+flag3=0.0.0.0
+flag3=127.0.0.1
+`);
+
+		expect(diviConfig.getFlagContents('flag1')).toEqual('value');
+		expect(diviConfig.getFlagContents('flag2')).toEqual('123');
+		expect(diviConfig.isFlagSet('#comment')).toEqual(false);
+		expect(diviConfig.getFlagContents('#commentedFlag')).not.toEqual('23');
+		expect(diviConfig.getFlagContents('flag3')).toEqual(
+			expect.arrayContaining(['123.456.789', '0.0.0.0', '127.0.0.1'])
+		);
+	});
+
 });
