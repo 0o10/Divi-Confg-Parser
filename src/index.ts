@@ -29,4 +29,15 @@ export default class DiviConfigParser {
 		this.flags[flagName].push(...this.convertValueArray(value));
 	}
 
+	getFlagContents(flagName: string): FlagTypes | FlagTypes[] {
+		const contents = this.flags[flagName];
+		if (!contents) {
+			return undefined;
+		} else if (contents.length > 1) {
+			return contents;
+		} else if (contents.length === 1) {
+			return contents[0];
+		}
+	}
+
 }
