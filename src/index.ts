@@ -18,6 +18,11 @@ export default class DiviConfigParser {
 		this.flags[flagName] = this.convertValueArray(value);
 	}
 
+	unsetFlag(flagName: string): void {
+		this.flags[flagName] = null;
+		delete this.flags[flagName];
+	}
+
 	isFlagSet(flagName: string): boolean {
 		return flagName in this.flags;
 	}

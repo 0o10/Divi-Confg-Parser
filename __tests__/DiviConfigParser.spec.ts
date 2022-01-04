@@ -45,6 +45,20 @@ describe('Divi Config Parser', () => {
 		expect(diviConfig.isFlagSet(randomString())).toEqual(false);
 	});
 
+	test('Sets flag (checks if set) unsets flag (and checks if still set)', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flagName = randomString();
+		diviConfig.setFlag(flagName, randomString());
+
+		expect(diviConfig.isFlagSet(flagName)).toEqual(true);
+
+		diviConfig.unsetFlag(flagName);
+
+		expect(diviConfig.isFlagSet(flagName)).toEqual(false);
+		expect(diviConfig.getFlagContents(flagName)).toEqual(undefined);
+	});
+
 	test('Adds additional value to flag & gets new flag contents', () => {
 		const diviConfig = new DiviConfigParser();
 
