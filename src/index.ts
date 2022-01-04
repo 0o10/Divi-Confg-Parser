@@ -4,6 +4,7 @@ export default class DiviConfigParser {
 	private flags: { [flagName: string]: FlagTypes[] } = {};
 
 	constructor(fileContents: string = '') {
+		this.fromString(fileContents);
 	}
 
 	private convertValueArray(value: FlagTypes | FlagTypes[]): FlagTypes[] {
