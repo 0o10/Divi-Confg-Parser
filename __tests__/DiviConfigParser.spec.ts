@@ -28,4 +28,20 @@ describe('Divi Config Parser', () => {
 		expect(diviConfig.getFlagContents(flagName)).toEqual(contents);
 	});
 
+	test('Sets flag & returns true if flag is set', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flagName = randomString();
+		const contents = randomBool();
+
+		diviConfig.setFlag(flagName, contents);
+
+		expect(diviConfig.isFlagSet(flagName)).toEqual(true);
+	});
+
+	test('Returns false if flag is not set', () => {
+		const diviConfig = new DiviConfigParser();
+
+		expect(diviConfig.isFlagSet(randomString())).toEqual(false);
+	});
 });
