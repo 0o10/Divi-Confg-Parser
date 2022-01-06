@@ -66,7 +66,7 @@ export default class DiviConfigParser {
 
 		for (const flag in this.flags) {
 			for (const value of this.flags[flag]) {
-				diviConfigString += '\n' + flag + '=' + value.toString();
+				diviConfigString += flag + '=' + value.toString() + '\n';
 			}
 		}
 
