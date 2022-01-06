@@ -148,9 +148,9 @@ flag3=127.0.0.1
 		const contents3 = randomInt();
 		diviConfig.setFlag(flag2, [contents2, contents3]);
 
-		expect(diviConfig.toString()).toEqual(`
-${flag1}=${contents1}
+		expect(diviConfig.toString()).toEqual(`${flag1}=${contents1}
 ${flag2}=${contents2}
-${flag2}=${contents3}`);
+${flag2}=${contents3}
+`);
 	});
 });
