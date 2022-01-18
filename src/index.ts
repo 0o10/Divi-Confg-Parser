@@ -66,7 +66,11 @@ export default class DiviConfigParser {
 
 		for (const flag in this.flags) {
 			for (const value of this.flags[flag]) {
-				diviConfigString += flag + '=' + value.toString() + '\n';
+				if(value?.toString) {
+					diviConfigString += flag + '=' + value.toString() + '\n';
+				} else {
+					console.warn('unable to parse value:', value, 'for flag:', flag)
+				}
 			}
 		}
 
