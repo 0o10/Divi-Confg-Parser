@@ -1,4 +1,4 @@
-import DiviConfigParser from '../src';
+import DiviConfigParser from '../src/DiviConfigParser';
 import {
 	randomBool,
 	randomInt,
