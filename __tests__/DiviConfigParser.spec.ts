@@ -80,7 +80,7 @@ describe('Divi Config Parser', () => {
 
 		const flagName = randomString();
 
-		const allContents = [];
+		const allContents: string[] = [];
 		for (let i = 0; i < allContents.length; i++) {
 			allContents.push(randomString());
 		}
