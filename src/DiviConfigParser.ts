@@ -7,7 +7,7 @@ export default class DiviConfigParser {
 		this.fromString(fileContents);
 	}
 
-	private convertValueArray(
+	private ensureValueIsInArray(
 		value: FlagTypes[FlagName]
 	): FlagTypes[FlagName][] {
 		if (!Array.isArray(value)) {
@@ -17,7 +17,7 @@ export default class DiviConfigParser {
 	}
 
 	setFlag<F extends FlagName>(flagName: F, value: FlagTypes[F]): void {
-		this.flags[flagName] = this.convertValueArray(value);
+		this.flags[flagName] = this.ensureValueIsInArray(value);
 	}
 
 	unsetFlag<F extends FlagName>(flagName: F): void {
@@ -34,7 +34,7 @@ export default class DiviConfigParser {
 			this.flags[flagName] = [];
 		}
 
-		this.flags[flagName].push(...this.convertValueArray(value));
+		this.flags[flagName].push(...this.ensureValueIsInArray(value));
 	}
 
 	getFlagContents<F extends FlagName>(
