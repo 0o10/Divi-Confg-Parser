@@ -19,6 +19,5 @@ export declare interface FlagTypes {
 	override_mnpayee: 0 | 1;
 	regtest: 0 | 1;
 }
-export declare type FlagName = keyof FlagTypes;
 
-export declare type FlagValueType = FlagTypes[FlagName] | any;
+export declare type FlagName = keyof FlagTypes;

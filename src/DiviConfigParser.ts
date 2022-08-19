@@ -1,41 +1,45 @@
-type FlagTypes = string | number | boolean;
+import { FlagName, FlagTypes } from './FlagNames';
 
 export default class DiviConfigParser {
-	private flags: { [flagName: string]: FlagTypes[] } = {};
+	private flags: { [flagName: string]: FlagTypes[FlagName][] } = {};
 
 	constructor(fileContents: string = '') {
 		this.fromString(fileContents);
 	}
 
-	private convertValueArray(value: FlagTypes | FlagTypes[]): FlagTypes[] {
+	private convertValueArray(
+		value: FlagTypes[FlagName]
+	): FlagTypes[FlagName][] {
 		if (!Array.isArray(value)) {
 			return [value];
 		}
 		return value;
 	}
 
-	setFlag(flagName: string, value: FlagTypes | FlagTypes[]): void {
+	setFlag<F extends FlagName>(flagName: F, value: FlagTypes[F]): void {
 		this.flags[flagName] = this.convertValueArray(value);
 	}
 
-	unsetFlag(flagName: string): void {
+	unsetFlag<F extends FlagName>(flagName: F): void {
 		this.flags[flagName] = null;
 		delete this.flags[flagName];
 	}
 
-	isFlagSet(flagName: string): boolean {
+	isFlagSet<F extends FlagName>(flagName: F): boolean {
 		return flagName in this.flags;
 	}
 
-	addValueToFlag(flagName: string, value: FlagTypes | FlagTypes[]): void {
+	addValueToFlag<F extends FlagName>(flagName: F, value: FlagTypes[F]): void {
 		if (!this.isFlagSet(flagName)) {
-			this.setFlag(flagName, []);
+			this.flags[flagName] = [];
 		}
 
 		this.flags[flagName].push(...this.convertValueArray(value));
 	}
 
-	getFlagContents(flagName: string): FlagTypes | FlagTypes[] {
+	getFlagContents<F extends FlagName>(
+		flagName: F
+	): FlagTypes[F] | FlagTypes[F][] | unknown {
 		const contents = this.flags[flagName];
 		if (!contents) {
 			return undefined;
@@ -56,7 +60,7 @@ export default class DiviConfigParser {
 		for (const line of lines) {
 			if (this.isStringDiviConfigFlag(line)) {
 				const [flagName, value] = line.split('=');
-				this.addValueToFlag(flagName, value);
+				this.addValueToFlag(flagName as FlagName, value);
 			}
 		}
 	}
