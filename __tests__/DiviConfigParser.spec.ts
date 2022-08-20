@@ -12,9 +12,9 @@ describe('Divi Config Parser', () => {
 		const flagName = randomString();
 		const contents = randomString();
 
-		diviConfig.setFlag(flagName, contents);
+		diviConfig.setFlag<any>(flagName, contents);
 
-		expect(diviConfig.getFlagContents(flagName)).toEqual(contents);
+		expect(diviConfig.getFlagContents<any>(flagName)).toEqual(contents);
 	});
 
 	test('Sets flag to have multiple values & gets all contents', () => {
@@ -23,40 +23,40 @@ describe('Divi Config Parser', () => {
 		const flagName = randomString();
 		const contents = [randomString(), randomString()];
 
-		diviConfig.setFlag(flagName, contents);
+		diviConfig.setFlag<any>(flagName, contents);
 
-		expect(diviConfig.getFlagContents(flagName)).toEqual(contents);
+		expect(diviConfig.getFlagContents<any>(flagName)).toEqual(contents);
 	});
 
 	test('Sets flag & returns true if flag is set', () => {
 		const diviConfig = new DiviConfigParser();
 
 		const flagName = randomString();
-		const contents = randomBool();
+		const contents = randomString();
 
-		diviConfig.setFlag(flagName, contents);
+		diviConfig.setFlag<any>(flagName, contents);
 
-		expect(diviConfig.isFlagSet(flagName)).toEqual(true);
+		expect(diviConfig.isFlagSet<any>(flagName)).toEqual(true);
 	});
 
 	test('Returns false if flag is not set', () => {
 		const diviConfig = new DiviConfigParser();
 
-		expect(diviConfig.isFlagSet(randomString())).toEqual(false);
+		expect(diviConfig.isFlagSet<any>(randomString())).toEqual(false);
 	});
 
 	test('Sets flag (checks if set) unsets flag (and checks if still set)', () => {
 		const diviConfig = new DiviConfigParser();
 
 		const flagName = randomString();
-		diviConfig.setFlag(flagName, randomString());
+		diviConfig.setFlag<any>(flagName, randomString());
 
-		expect(diviConfig.isFlagSet(flagName)).toEqual(true);
+		expect(diviConfig.isFlagSet<any>(flagName)).toEqual(true);
 
-		diviConfig.unsetFlag(flagName);
+		diviConfig.unsetFlag<any>(flagName);
 
-		expect(diviConfig.isFlagSet(flagName)).toEqual(false);
-		expect(diviConfig.getFlagContents(flagName)).toEqual(undefined);
+		expect(diviConfig.isFlagSet<any>(flagName)).toEqual(false);
+		expect(diviConfig.getFlagContents<any>(flagName)).toEqual(undefined);
 	});
 
 	test('Adds additional value to flag & gets new flag contents', () => {
@@ -65,12 +65,12 @@ describe('Divi Config Parser', () => {
 		const flagName = randomString();
 
 		const contents1 = randomString();
-		diviConfig.setFlag(flagName, contents1);
+		diviConfig.setFlag<any>(flagName, contents1);
 
 		const contents2 = randomInt();
-		diviConfig.addValueToFlag(flagName, contents2);
+		diviConfig.addValueToFlag<any>(flagName, contents2);
 
-		expect(diviConfig.getFlagContents(flagName)).toEqual(
+		expect(diviConfig.getFlagContents<any>(flagName)).toEqual(
 			expect.arrayContaining([contents1, contents2])
 		);
 	});
@@ -85,9 +85,9 @@ describe('Divi Config Parser', () => {
 			allContents.push(randomString());
 		}
 
-		diviConfig.addValueToFlag(flagName, allContents);
+		diviConfig.addValueToFlag<any>(flagName, allContents);
 
-		expect(diviConfig.getFlagContents(flagName)).toEqual(
+		expect(diviConfig.getFlagContents<any>(flagName)).toEqual(
 			expect.arrayContaining(allContents)
 		);
 	});
@@ -106,11 +106,13 @@ flag3=0.0.0.0
 flag3=127.0.0.1
 `);
 
-		expect(diviConfig.getFlagContents('flag1')).toEqual('value');
-		expect(diviConfig.getFlagContents('flag2')).toEqual('123');
-		expect(diviConfig.isFlagSet('#comment')).toEqual(false);
-		expect(diviConfig.getFlagContents('#commentedFlag')).not.toEqual('23');
-		expect(diviConfig.getFlagContents('flag3')).toEqual(
+		expect(diviConfig.getFlagContents<any>('flag1')).toEqual('value');
+		expect(diviConfig.getFlagContents<any>('flag2')).toEqual('123');
+		expect(diviConfig.isFlagSet<any>('#comment')).toEqual(false);
+		expect(diviConfig.getFlagContents<any>('#commentedFlag')).not.toEqual(
+			'23'
+		);
+		expect(diviConfig.getFlagContents<any>('flag3')).toEqual(
 			expect.arrayContaining(['123.456.789', '0.0.0.0', '127.0.0.1'])
 		);
 	});
@@ -127,11 +129,13 @@ flag3=0.0.0.0
 flag3=127.0.0.1
 `);
 
-		expect(diviConfig.getFlagContents('flag1')).toEqual('value');
-		expect(diviConfig.getFlagContents('flag2')).toEqual('123');
-		expect(diviConfig.isFlagSet('#comment')).toEqual(false);
-		expect(diviConfig.getFlagContents('#commentedFlag')).not.toEqual('23');
-		expect(diviConfig.getFlagContents('flag3')).toEqual(
+		expect(diviConfig.getFlagContents<any>('flag1')).toEqual('value');
+		expect(diviConfig.getFlagContents<any>('flag2')).toEqual('123');
+		expect(diviConfig.isFlagSet<any>('#comment')).toEqual(false);
+		expect(diviConfig.getFlagContents<any>('#commentedFlag')).not.toEqual(
+			'23'
+		);
+		expect(diviConfig.getFlagContents<any>('flag3')).toEqual(
 			expect.arrayContaining(['123.456.789', '0.0.0.0', '127.0.0.1'])
 		);
 	});
@@ -141,12 +145,12 @@ flag3=127.0.0.1
 
 		const flag1 = randomString();
 		const contents1 = randomString();
-		diviConfig.addValueToFlag(flag1, contents1);
+		diviConfig.addValueToFlag<any>(flag1, contents1);
 
 		const flag2 = randomString();
 		const contents2 = randomBool();
 		const contents3 = randomInt();
-		diviConfig.setFlag(flag2, [contents2, contents3]);
+		diviConfig.setFlag<any>(flag2, [contents2, contents3]);
 
 		expect(diviConfig.toString()).toEqual(`${flag1}=${contents1}
 ${flag2}=${contents2}
