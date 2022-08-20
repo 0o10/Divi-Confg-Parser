@@ -140,12 +140,12 @@ flag3=127.0.0.1
 		);
 	});
 
-	test('Returns divi config file', () => {
+	test('Gets Divi Config as String', () => {
 		const diviConfig = new DiviConfigParser();
 
 		const flag1 = randomString();
 		const contents1 = randomString();
-		diviConfig.addValueToFlag<any>(flag1, contents1);
+		diviConfig.setFlag<any>(flag1, contents1);
 
 		const flag2 = randomString();
 		const contents2 = randomBool();
