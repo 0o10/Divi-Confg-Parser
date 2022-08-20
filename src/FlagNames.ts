@@ -1,3 +1,7 @@
+/**
+ * @note This is not an extensive list of all daemon configuration flags.
+ * More will be added as needed
+ */
 export declare interface FlagTypes {
 	rpcuser: string;
 	rpcpassword: string;
