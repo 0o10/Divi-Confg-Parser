@@ -8,7 +8,7 @@ export default class DiviConfigParser {
 	}
 
 	private ensureValueIsInArray(
-		value: FlagTypes[FlagName]
+		value: FlagTypes[FlagName] | FlagTypes[FlagName][]
 	): FlagTypes[FlagName][] {
 		if (!Array.isArray(value)) {
 			return [value];
