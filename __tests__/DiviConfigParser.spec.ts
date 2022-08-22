@@ -157,4 +157,45 @@ ${flag2}=${contents2}
 ${flag2}=${contents3}
 `);
 	});
+
+	test('Copies another divi config contents into self', () => {
+		const diviConfig1 = new DiviConfigParser();
+
+		const flag1 = randomString();
+		const contents1 = randomString();
+		diviConfig1.setFlag<any>(flag1, contents1);
+
+		const diviConfig2 = new DiviConfigParser();
+
+		const flag2 = randomString();
+		const contents2 = [randomBool(), randomInt()];
+		diviConfig2.setFlag<any>(flag2, contents2);
+
+		const flag3 = randomString();
+		const contents3 = randomString();
+		diviConfig2.setFlag<any>(flag3, contents3);
+
+		diviConfig1.copyFlagsFromConfig(diviConfig2);
+
+		expect(diviConfig1.getFlagContents<any>(flag1)).toEqual(contents1);
+		expect(diviConfig1.getFlagContents<any>(flag2)).toEqual(contents2);
+		expect(diviConfig1.getFlagContents<any>(flag3)).toEqual(contents3);
+	});
+
+	test('Overwrites current flags with other divi config', () => {
+		const diviConfig1 = new DiviConfigParser();
+
+		const flag1 = randomString();
+		const contents1 = randomString();
+		diviConfig1.setFlag<any>(flag1, contents1);
+
+		const diviConfig2 = new DiviConfigParser();
+
+		const contents2 = randomString();
+		diviConfig2.setFlag<any>(flag1, contents2);
+
+		diviConfig1.copyFlagsFromConfig(diviConfig2);
+
+		expect(diviConfig1.getFlagContents<any>(flag1)).toEqual(contents2);
+	});
 });
