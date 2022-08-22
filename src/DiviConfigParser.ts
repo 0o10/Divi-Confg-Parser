@@ -93,15 +93,12 @@ export default class DiviConfigParser {
 		for (const flag in this.flags) {
 			const flagContents = this.getFlagContents(flag as FlagName);
 
-			console.log(flagContents);
 			if (Array.isArray(flagContents)) {
-				console.log('flag is array', flagContents);
 				diviConfigString += this.flagWithMultipleValuesToString(
 					flag as FlagName,
 					flagContents
 				);
 			} else {
-				console.log('flag is not array', flagContents);
 				diviConfigString += this.flagValuePairToString(
 					flag as FlagName,
 					flagContents
@@ -110,5 +107,20 @@ export default class DiviConfigParser {
 		}
 
 		return diviConfigString;
+	}
+
+	copyFlagsFromConfig(otherConfig: DiviConfigParser): DiviConfigParser {
+		for (const flag in otherConfig.flags) {
+			const otherFlagValue = otherConfig.flags[flag];
+
+			if (Array.isArray(otherFlagValue)) {
+				for (const value of otherFlagValue) {
+					this.addValueToFlag(flag as FlagName, value);
+				}
+			} else {
+				this.setFlag(flag as FlagName, otherFlagValue);
+			}
+		}
+		return this;
 	}
 }
