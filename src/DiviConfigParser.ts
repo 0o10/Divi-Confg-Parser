@@ -37,7 +37,12 @@ export default class DiviConfigParser {
 		this.flags[flagName] = this.isFlagSet(flagName)
 			? this.ensureValueIsInArray(this.flags[flagName])
 			: [];
-		(this.flags[flagName] as FlagTypes[FlagName][]).push(value);
+
+		if (Array.isArray(value)) {
+			(this.flags[flagName] as FlagTypes[FlagName][]).push(...value);
+		} else {
+			(this.flags[flagName] as FlagTypes[FlagName][]).push(value);
+		}
 	}
 
 	getFlagContents<F extends FlagName>(flagName: F): FlagTypes[F] {
