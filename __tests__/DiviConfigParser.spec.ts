@@ -75,6 +75,19 @@ describe('Divi Config Parser', () => {
 		);
 	});
 
+	test('Adds nothing to flag when given empty array', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flagName = randomString();
+
+		const contents = randomString();
+
+		diviConfig.addValueToFlag<any>(flagName, contents);
+		diviConfig.addValueToFlag<any>(flagName, []);
+
+		expect(diviConfig.getFlagContents<any>(flagName)).toEqual([contents]);
+	});
+
 	test('Adds several values to flag & gets new flag contents', () => {
 		const diviConfig = new DiviConfigParser();
 
@@ -105,16 +118,18 @@ flag3=123.456.789
 flag3=0.0.0.0
 flag3=127.0.0.1
 `);
-
+		console.log(diviConfig.toString());
 		expect(diviConfig.getFlagContents<any>('flag1')).toEqual('value');
 		expect(diviConfig.getFlagContents<any>('flag2')).toEqual('123');
 		expect(diviConfig.isFlagSet<any>('#comment')).toEqual(false);
 		expect(diviConfig.getFlagContents<any>('#commentedFlag')).not.toEqual(
 			'23'
 		);
-		expect(diviConfig.getFlagContents<any>('flag3')).toEqual(
-			expect.arrayContaining(['123.456.789', '0.0.0.0', '127.0.0.1'])
-		);
+		expect(diviConfig.getFlagContents<any>('flag3')).toEqual([
+			'123.456.789',
+			'0.0.0.0',
+			'127.0.0.1',
+		]);
 	});
 
 	test('Constructs from divi config file', () => {
