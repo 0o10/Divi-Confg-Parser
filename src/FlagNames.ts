@@ -22,6 +22,7 @@ export declare interface FlagTypes {
 	stakesplitthreshold: number;
 	override_mnpayee: 0 | 1;
 	regtest: 0 | 1;
+	datadir: string;
 }
 
 export declare type FlagName = keyof FlagTypes;
