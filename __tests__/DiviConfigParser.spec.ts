@@ -105,6 +105,30 @@ describe('Divi Config Parser', () => {
 		);
 	});
 
+	test('Flag string creation', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flagName = randomString();
+
+		const content = randomString();
+
+		expect(diviConfig.flagToString<any>(flagName, content)).toEqual(
+			flagName + '=' + content
+		);
+	});
+
+	test('Cli Flag string creation', () => {
+		const diviConfig = new DiviConfigParser();
+
+		const flagName = randomString();
+
+		const content = randomString();
+
+		expect(diviConfig.cliFlagToString<any>(flagName, content)).toEqual(
+			'-' + flagName + '=' + content
+		);
+	});
+
 	test('Sets flags from divi config file', () => {
 		const diviConfig = new DiviConfigParser();
 
