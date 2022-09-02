@@ -78,6 +78,10 @@ export default class DiviConfigParser {
 		return flag + '=' + value.toString();
 	}
 
+	cliFlagToString<F extends FlagName>(flag: F, value: FlagTypes[F]): string {
+		return '-' + this.flagToString(flag, value);
+	}
+
 	private flagWithMultipleValuesToString(
 		flag: FlagName,
 		values: string[]
