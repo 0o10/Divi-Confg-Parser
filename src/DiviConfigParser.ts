@@ -70,15 +70,12 @@ export default class DiviConfigParser {
 		}
 	}
 
-	private flagValuePairToString(
-		flag: FlagName,
-		value: FlagTypes[FlagName]
-	): string {
+	flagToString<F extends FlagName>(flag: F, value: FlagTypes[F]): string {
 		if (typeof value === 'undefined') {
 			console.warn('unable to parse value:', value, 'for flag:', flag);
 			return;
 		}
-		return flag + '=' + value.toString() + '\n';
+		return flag + '=' + value.toString();
 	}
 
 	private flagWithMultipleValuesToString(
@@ -87,7 +84,7 @@ export default class DiviConfigParser {
 	): string {
 		let result = '';
 		for (const value of values) {
-			result += this.flagValuePairToString(flag, value);
+			result += this.flagToString(flag, value) + '\n';
 		}
 		return result;
 	}
@@ -104,10 +101,8 @@ export default class DiviConfigParser {
 					flagContents
 				);
 			} else {
-				diviConfigString += this.flagValuePairToString(
-					flag as FlagName,
-					flagContents
-				);
+				diviConfigString +=
+					this.flagToString(flag as FlagName, flagContents) + '\n';
 			}
 		}
 
